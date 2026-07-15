@@ -20,6 +20,7 @@ This guide assumes no prior coding experience beyond having Python already insta
 | [Git](https://git-scm.com/downloads) | One-time: lets `pip` download the SDK's source code |
 | A TRUF.NETWORK private key | Identifies and signs transactions as "you" |
 | The `system:network_writer` role on that key | Required to create streams — see [step 6](#6-get-a-private-key-and-request-access) |
+| A wallet balance: **TRUF** on mainnet, or **TT** (test token) on testnet | Every transaction (creating a stream, inserting a record) pays a network fee in that network's token — see [Fee Reference](#fee-reference) |
 
 Don't worry if Go and Git aren't installed yet — that's covered below. Steps below have separate instructions for Windows, macOS, and Linux wherever the commands differ.
 
@@ -135,6 +136,8 @@ You need a private key (a long hex string) to sign transactions. If you don't al
 
 > **⚠️ Keep it secret.** Anyone with your private key has full control of that wallet. Never share it, commit it to source control, or paste it into a chat. Treat `config.ini` (step 7) as sensitive once it's filled in.
 
+> **💰 Fund the wallet.** Both scripts submit transactions, and every transaction pays a network fee — so this wallet needs a balance before either script will succeed: **TRUF** if you're using mainnet, or **TT** (test token) if you're using testnet. Without it, `create_stream.py` and `insert_record.py` will fail (see [Troubleshooting](#troubleshooting)). For exact amounts, see [Fee Reference](#fee-reference).
+
 ---
 
 ## 7. Configure `config.ini`
@@ -165,7 +168,7 @@ name = my-first-stream
 ```
 
 - **`private_key`** — the key from step 6 (with or without a leading `0x`, either works).
-- **`mainnet`** — `false` to use the test network (recommended while you're learning), `true` for the real network.
+- **`mainnet`** — `false` to use the test network (recommended while you're learning), `true` for the real network. This also determines which token your wallet needs a balance of: **TT** for `false` (testnet), **TRUF** for `true` (mainnet) — see step 6.
 - **`name`** — any unique name you choose for your stream. This name determines the stream's ID, so **don't change it** between creating the stream and inserting records into it later.
 
 Save the file.
@@ -173,6 +176,8 @@ Save the file.
 ---
 
 ## 8. Create your stream
+
+> Reminder: this submits a transaction, so your wallet needs a balance of TRUF (mainnet) or TT (testnet) — see step 6 and [Fee Reference](#fee-reference) (100 TRUF/TT per stream).
 
 Still in the terminal, with your virtual environment active (same command on every OS, since the active virtual environment's `python` is used):
 
@@ -194,6 +199,8 @@ That's it — your stream now exists on TRUF.NETWORK. You only need to run this 
 ---
 
 ## 9. Insert a record
+
+> Reminder: this also submits a transaction, so it too needs a wallet balance of TRUF (mainnet) or TT (testnet) — see step 6 and [Fee Reference](#fee-reference) (1 TRUF/TT per insert).
 
 Now add a data point to the stream you just created:
 
@@ -224,6 +231,25 @@ You can run `insert_record.py` as many times as you like, with different values 
 
 ---
 
+## Fee Reference
+
+Every transaction these scripts submit costs a network fee, paid in the wallet's balance of TRUF (mainnet) or TT (testnet). As of this writing:
+
+| Script | Action | Fee |
+|---|---|---|
+| `create_stream.py` | Create a stream (`create_streams`) | **100 TRUF / TT per stream** |
+| `insert_record.py` | Insert a record (`insert_records`) | **1 TRUF / TT per transaction** (flat — each run of this script is one transaction) |
+
+Notes:
+
+- The fee amount is identical on both networks — only the token's name differs (TRUF on mainnet, TT on testnet); both use 18 decimals.
+- There's no separate "gas" charge on top of this — the action fee shown above is the only per-transaction cost.
+- The fee is paid to the network's block leader, not burned.
+
+So, at minimum, fund the wallet with 100 TRUF/TT before [step 8](#8-create-your-stream), plus 1 TRUF/TT for every subsequent [step 9](#9-insert-a-record) call.
+
+---
+
 ## Troubleshooting
 
 | Problem | Likely cause / fix |
@@ -231,6 +257,7 @@ You can run `insert_record.py` as many times as you like, with different values 
 | `config.ini: wallet.private_key is required` | You haven't filled in `private_key` in `config.ini` yet. |
 | `config.ini: stream.name is required` | You haven't filled in `name` in `config.ini` yet. |
 | An error mentioning permissions/roles | Your key hasn't been granted the `system:network_writer` role — see step 6. |
+| An error mentioning insufficient funds/balance | Your wallet needs TRUF (mainnet) or TT (testnet) to pay the transaction fee — see [Fee Reference](#fee-reference) for exact amounts. Double-check `mainnet` in `config.ini` matches the network you actually funded. |
 | An error saying the stream already exists | You already ran `create_stream.py` with this `name`. Either pick a new `name` in `config.ini`, or skip straight to `insert_record.py` — the stream is already there. |
 | `'go' is not recognized` (Windows) / `go: command not found` (macOS/Linux) — same for `git` | Close and reopen your terminal after installing Go/Git so it picks up the new install; re-verify with `go version` / `git --version`. |
 | `pip install -r requirements.txt` fails while compiling | Double-check `go version` works in the same terminal you're running `pip` from. On macOS/Linux, consider the prebuilt-wheel shortcut in [step 5](#5-install-the-sdk-and-dependencies) instead. |
