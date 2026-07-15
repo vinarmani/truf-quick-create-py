@@ -127,7 +127,7 @@ This downloads and compiles `trufnetwork-sdk-py` from source, which is why Go an
 
 ---
 
-## 4. Get a private key and request access
+## 4. Get a private key
 
 You need a private key (a long hex string) to sign transactions. If you don't already have one, any standard Ethereum-style wallet (e.g. MetaMask) can generate one for you and let you export it.
 
