@@ -1,0 +1,25 @@
+; Example configuration for create_stream.py and insert_record.py.
+;
+; Copy this file to config.ini (same directory), then fill in the values below:
+;
+;     cp config.ini.example config.ini
+;
+; config.ini is gitignored, so once you fill in your private key, it never
+; gets committed to source control.
+
+[wallet]
+; Private key used to sign transactions (with or without a 0x prefix).
+; This account becomes the stream's creator/owner, and the data provider
+; for records inserted into it.
+private_key =
+
+[network]
+; true  -> https://gateway.mainnet.truf.network
+; false -> https://gateway.testnet.truf.network
+mainnet = false
+
+[stream]
+; Human-readable, unique name for the primitive stream.
+; It is hashed into the on-chain stream ID via generate_stream_id().
+; Keep this the same between create_stream.py and insert_record.py runs.
+name =
