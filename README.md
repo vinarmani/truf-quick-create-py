@@ -27,7 +27,7 @@ Don't worry if Go and Git aren't installed yet — that's covered below. Steps b
 
 ## 1. Check your Python version
 
-Open a terminal in this folder (`quick-create`) and run:
+Open a terminal in this folder (`truf-quick-create-py`) and run:
 
 **Windows (PowerShell):**
 ```powershell
@@ -95,7 +95,7 @@ git --version
 
 ## 4. Set up a virtual environment (recommended)
 
-A virtual environment keeps this project's dependencies separate from anything else on your computer. From inside the `quick-create` folder:
+A virtual environment keeps this project's dependencies separate from anything else on your computer. From inside the `truf-quick-create-py` folder:
 
 **Windows (PowerShell):**
 ```powershell
