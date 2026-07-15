@@ -18,7 +18,6 @@ This guide assumes no prior coding experience beyond having Python already insta
 | Python 3.12 | Runs the scripts. The recommended install method (a prebuilt wheel, see step 3) currently targets Python 3.12 specifically. |
 | [Go](https://go.dev/dl/) 1.25+, [Git](https://git-scm.com/downloads), and (Linux only) `patchelf` | Only needed if you build the SDK from source instead of using the prebuilt wheel — required on Windows (no prebuilt wheel exists yet), or if no wheel matches your OS/architecture. See step 3. |
 | A TRUF.NETWORK private key | Identifies and signs transactions as "you" |
-| The `system:network_writer` role on that key | Required to create streams — see [step 4](#4-get-a-private-key-and-request-access) |
 | A wallet balance: **TRUF** on mainnet, or **TT** (test token) on testnet | Every transaction (creating a stream, inserting a record) pays a network fee in that network's token — see [Fee Reference](#fee-reference) |
 
 Most macOS/Linux users won't need Go, Git, or `patchelf` at all — the recommended install path in step 3 skips them entirely. Steps below have separate instructions for Windows, macOS, and Linux wherever the commands differ.
