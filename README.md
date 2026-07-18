@@ -166,9 +166,11 @@ name = my-first-stream
 
 - **`private_key`** — the key from step 4 (with or without a leading `0x`, either works).
 - **`mainnet`** — `false` to use the test network (recommended while you're learning), `true` for the real network. This also determines which token your wallet needs a balance of: **TT** for `false` (testnet), **TRUF** for `true` (mainnet) — see step 4.
-- **`name`** — any unique name you choose for your stream. This name determines the stream's ID, so **don't change it** between creating the stream and inserting records into it later.
+- **`name`** — any unique name you choose for your stream. This name determines the stream's ID, so **don't change it** between creating the stream and inserting records into it later. This name is only used locally, on your own computer, to deterministically derive the stream's ID — it is **never sent to or stored on the network**, and no one else will ever see it. Only the derived stream ID (e.g. `st1234567890abcdef...`) is public.
 
 Save the file.
+
+> **Want your stream to be publicly discoverable?** By default, a stream on TRUF.NETWORK is identified only by its ID — there's no public name, description, or other metadata attached to it. If you'd like to add metadata (like a display name or description) that other people can search for and see, you can do that from your dashboard at [Trufscan.io](https://trufscan.io) once you're logged in — it's a separate, optional step from anything in this guide.
 
 ---
 
