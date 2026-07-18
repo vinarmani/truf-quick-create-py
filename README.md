@@ -133,7 +133,7 @@ You need a private key (a long hex string) to sign transactions. If you don't al
 
 > **⚠️ Keep it secret.** Anyone with your private key has full control of that wallet. Never share it, commit it to source control, or paste it into a chat. Treat `config.ini` (step 5) as sensitive once it's filled in.
 
-> **💰 Fund the wallet.** Both scripts submit transactions, and every transaction pays a network fee — so this wallet needs a balance before either script will succeed: **TRUF** if you're using mainnet, or **TT** (test token) if you're using testnet. Without it, `create_stream.py` and `insert_record.py` will fail (see [Troubleshooting](#troubleshooting)). For exact amounts, see [Fee Reference](#fee-reference).
+> **💰 Fund the wallet.** Both scripts submit transactions, and every transaction pays a network fee — so this wallet needs a balance before either script will succeed: **TRUF** if you're using mainnet, or **TT** (test token) if you're using testnet. Without it, `create_stream.py` and `insert_record.py` will fail (see [Troubleshooting](#troubleshooting)). For exact amounts, see [Fee Reference](#fee-reference). To get testnet TT from the faucet, follow the [testnet wallet funding guide](https://github.com/trufnetwork/node/blob/main/docs/testnet-wallet-funding.md).
 
 ---
 
